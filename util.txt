@@ -1,0 +1,25 @@
+Funciones de la minilib utiles
+mlx_new_window -> para manejar ventanas
+mlx_pixel_put  -> para dibujar dentro de la ventana
+mlx_new_image  -> para manejar imagenes
+mlx_loop       -> para manejar eventos del teclado y el raton
+
+para usar minilibx tengo que enlazar mi programa con la libreria de la minilib
+y el framework
+" -lmlx -framework OpenGL -framework AppKit "
+tambien necesito especificar el path a la libreria usando la flag -L
+
+*****manera de compilar con la lib
+cc *.c -L <ruta de la lib> -lmlx -framework OpenGL -framework AppKit
+
+--Funcion
+int	mlx_pixel_put(void *mlx_ptr, void *wind_ptr, int x, int y, int color);
+ mlx_pixel_put(1arg type: void iniciacion de la lib (mlx_ptr), 
+			2arg type: void iniciacion de la ventana (win_ptr)
+			3arg type: int cordenada x
+			4arg type: int cordenada y
+			5arg type: int color)
+dibuja un pixel en la ventana (win_ptr) usando las cordenadas (x, y) y el color esecificado en (color tipo RGB), el incio (0,0) inicia en la parte superior izqierda de la ventana
+la variable tipo int color sigue el siguiente formato
+-0-R-G-B 
+en un rango de colores de 0-255
