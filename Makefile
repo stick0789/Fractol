@@ -6,18 +6,19 @@
 #    By: jaacosta <jaacosta@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/02 17:47:40 by jaacosta          #+#    #+#              #
-#    Updated: 2025/02/12 21:46:34 by jaacosta         ###   ########.fr        #
+#    Updated: 2025/02/13 21:47:31 by jaacosta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
 CC	= gcc
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -g
+#CFLAGS	= -Wall -Wextra -Werror -g
 AR	= ar -rcs
 RM	= rm -rf
 
-SRCS 	=  fractol.c process.c utils.c
+SRCS 	=  fractol.c process.c utils.c actions.c
 	  
 SRC_PATH = ./src/
 OBJ_PATH = ./tmp/
