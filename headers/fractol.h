@@ -6,7 +6,7 @@
 /*   By: jaacosta <jaacosta@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:42:30 by jaacosta          #+#    #+#             */
-/*   Updated: 2025/02/13 22:03:39 by jaacosta         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:20:14 by jaacosta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -26,6 +26,21 @@
 /*---   Tamaño de la Ventana // Window Size ---*/
 #define WIDTH	800
 #define HEIGHT	800
+
+/*---	Teclas Usadas // Used Keys --- */
+#define ESC	65307
+#define UP	65362
+#define DOWN	65364
+#define LEFT	65361
+#define RIGHT	65363
+#define MINUS	65451
+#define PLUS	65453
+
+/*---	Opciones del Mouse // Mouse Options ---*/
+#define LEFTCLICK	1
+#define RIGHTCLICK	3
+#define ZOOMIN		4
+#define ZOOMOUT		5
 
 /*--- Colores Usados // Used Colors ---*/
 #define BLACK   0x000000
@@ -63,6 +78,15 @@ typedef struct	s_fractal
 	t_img	img;
 
 	double	escape_value;//hypotenuse
+	double	move_x;
+	double	move_y;
+	double	zoom;
+	double	min_re;
+	double	max_re;
+	double	min_im;
+	double	max_im;
+	double	x;
+	double	y;
 	int	iteration_definition;
 }	t_fractal;
 
@@ -74,15 +98,19 @@ typedef struct	s_complex
 	double	y;
 }	t_complex;
 
+
 /*--- Funciones de Fractales // Fractal Functions ---*/
 void    fractal_init(t_fractal *fractal);
 void    fractal_render(t_fractal *fractal);
 
 /*--- Acciones-Eventos // Actions-Events --- */
+int	close_window(t_fractal *fractal);
 int     key_actions(int keyid, t_fractal *fractal);
+int	mouse_actions(int buttonid, int x, int y, t_fractal *fractal);
 
 /*--- Auxiliares Matematicos // Math Utils ---*/
 double  map(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
+double	scale(double unscaled_num, double new_min, double new_max, double old_max);
 t_complex       sum_complex(t_complex z1, t_complex z2);
 t_complex       square_complex(t_complex z);
 #endif
