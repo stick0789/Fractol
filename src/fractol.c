@@ -32,6 +32,8 @@ int	main(int ac, char **av)
 		|| (ac == 4 && !ft_strncmp(set, "julia", 5)))
 	{
 		fractal.name = av[1];
+		fractal.jul_x = ft_atodbl(av[2]);
+		fractal.jul_y = ft_atodbl(av[3]);
 		//iniciar el fractol
 		fractal_init(&fractal);	
 		//renderizar la ventana del fractal

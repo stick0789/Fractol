@@ -87,6 +87,8 @@ typedef struct	s_fractal
 	double	max_im;
 	double	x;
 	double	y;
+	double	jul_x;
+	double	jul_y;
 	int	iteration_definition;
 }	t_fractal;
 
@@ -113,4 +115,5 @@ double  map(double unscaled_num, double new_min, double new_max, double old_min,
 double	scale(double unscaled_num, double new_min, double new_max, double old_max);
 t_complex       sum_complex(t_complex z1, t_complex z2);
 t_complex       square_complex(t_complex z);
+double		ft_atodbl(const char *nptr);
 #endif

@@ -97,6 +97,8 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 	c.y = (map(y, +2, -2, 0, HEIGHT) * fractal->zoom) + fractal->move_y;
 
 	//how many times iterate z^2 + c to check if the point escaped
+	//Formula Mandelbrot  z^2 + c
+	//Formula Julia = pixelPoint + costant(c)
 	while (i < fractal->iteration_definition)
 	{
 		//z = z^2 + c 
@@ -114,7 +116,8 @@ void	handle_pixel(int x, int y, t_fractal *fractal)
 	}
 	my_pixel_put(x, y, &fractal->img, PSYCHEDELIC_PURPLE);
 }*/
-/* prubeas */
+/* YA FUNCIONA */
+/*
 void	handle_pixel(int x, int y,   t_fractal *fractal)
 {
 	t_complex	z;
@@ -125,11 +128,7 @@ void	handle_pixel(int x, int y,   t_fractal *fractal)
 	z.x = 0.0;
 	z.y = 0.0;
 	i = 0;
-	//pixel coordenate to the fix mandelbrot set
-	//c.x = (map(x, fractal->min_re, fractal->max_re, 0, WIDTH) * fractal->zoom) + fractal->move_x;
-	//c.y = (map(y, fractal->max_im, fractal->min_im, 0, HEIGHT) * fractal->zoom) + fractal->move_y;
-	//c.x = (map(x, fractal->min_re, fractal->max_re, 0, WIDTH)) + fractal->move_x;;
-	//c.y = (map(y, fractal->max_im, fractal->min_im, 0, HEIGHT)) + fractal->move_y;
+	//for mandelbrot
 	c.x = fractal->x + fractal->move_x;
 	c.y = fractal->y + fractal->move_y; 
 
@@ -150,7 +149,60 @@ void	handle_pixel(int x, int y,   t_fractal *fractal)
 		++i;
 	}
 	my_pixel_put(x, y, &fractal->img, PSYCHEDELIC_PURPLE);
+}*/
+/*adding julia*/
+void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
+{
+	if(!ft_strncmp(fractal->name, "julia", 5))
+	{
+		c->x = fractal->jul_x;
+		c->y = fractal->jul_y;
+	}
+	else
+	{
+		c->x = z->x;
+		c->y = z->y;
+	}
 }
+
+void	handle_pixel(int x, int y,   t_fractal *fractal)
+{
+	t_complex	z;
+	t_complex	c;
+	int		i;
+	int		color;
+
+	z.x = 0.0;
+	z.y = 0.0;
+	i = 0;
+	//for mandelbrot
+	//c.x = fractal->x + fractal->move_x;
+	//c.y = fractal->y + fractal->move_y; 
+	//for julia
+	z.x = fractal->x + fractal->move_x;
+	z.y = fractal->y + fractal->move_y;
+	
+	mandel_julia(&z, &c, fractal);
+
+	//how many times iterate z^2 + c to check if the point escaped
+	while (i < fractal->iteration_definition)
+	{
+		//z = z^2 + c 
+		z = sum_complex(square_complex(z), c);
+		
+		//if the value escaped 
+		//if the hypotenuse > 2 is becase the point has escaped
+		if ((z.x * z.x) + (z.y * z.y) > fractal->escape_value)
+		{
+			color = map(i, BLACK, WHITE, 0, fractal->iteration_definition);
+			my_pixel_put(x, y, &fractal->img, color);
+			return ;
+		}
+		++i;
+	}
+	my_pixel_put(x, y, &fractal->img, PSYCHEDELIC_PURPLE);
+}
+
 /* funciona a medias */
 /*
 void	handle_pixel(int x, int y, t_fractal *fractal)
